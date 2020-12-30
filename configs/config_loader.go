@@ -1,6 +1,7 @@
 package configs
 
 import (
+	"log"
 	"os"
 
 	yaml "gopkg.in/yaml.v3"
@@ -24,20 +25,23 @@ type Configuration struct {
 	} `yaml:"twitterAPIConfig"`
 }
 
-// ConfigLoader interface for loading configuration values
-type ConfigLoader interface {
-	load() (Configuration, error)
-}
-
 const configFileName = "configs/config.yml"
 
-func (c *Configuration) load() (*Configuration, error) {
+// Load config
+func (c *Configuration) Load() *Configuration {
+	log.Printf("Loading configuration from file: %s\n", configFileName)
 	file, err := os.Open(configFileName)
 	if err != nil {
-		return c, err
+		log.Fatalf("Could not load configuration: %d\n", err)
+		os.Exit(1)
 	}
 
 	defer file.Close()
 	err = yaml.NewDecoder(file).Decode(&c)
-	return c, err
+	if err != nil {
+		log.Fatalf("Could not load the configuration: %d\n", err)
+		os.Exit(1)
+	}
+	log.Printf("Loaded config values: %+v\n", c)
+	return c
 }
