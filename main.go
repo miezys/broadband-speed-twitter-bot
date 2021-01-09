@@ -27,7 +27,8 @@ func main() {
 			var cc string
 			if config.BotConfig.BroadbandProviderTwitterID != "" &&
 				(config.BotConfig.ExpectedDownloadSpeed >= 2*int(s.DLSpeed) ||
-					config.BotConfig.ExpectedUploadSpeed >= 2*int(s.ULSpeed)) {
+					config.BotConfig.ExpectedUploadSpeed >= 2*int(s.ULSpeed) &&
+						config.BotConfig.BroadbandProviderTwitterID != "") {
 				cc = fmt.Sprintf("cc %s", config.BotConfig.BroadbandProviderTwitterID)
 			}
 
