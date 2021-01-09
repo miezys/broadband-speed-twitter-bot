@@ -11,6 +11,7 @@ botConfig:
   # mbit/s
   expectedDownloadSpeed: 150
   expectedUploadSpeed: 10
+  # seconds
   measureFrequency: 1800
 
 twitterAPIConfig:
